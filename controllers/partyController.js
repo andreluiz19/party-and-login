@@ -52,7 +52,7 @@ const partyController = {
 
             const deletedParty = await Party.findByIdAndDelete(id);
 
-            res.status(200).json({ deletedParty, mag: "Festa deletada com sucesso." });
+            res.status(200).json({ deletedParty, msg: "Festa deletada com sucesso." });
         } catch (error) {
             console.log(`Erro: ${error}`);
         }
