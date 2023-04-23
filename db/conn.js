@@ -17,7 +17,7 @@ async function main() {
             `mongodb+srv://${dbUser}:${dbPass}@cluster0.wpemlmw.mongodb.net/test`
         )
         
-        console.log(" ======== Conectado ao BD ======== ")
+        console.log(" ======== CONECTADO AO BD ======== ")
     } catch (error) {
         console.log(`Erro: ${error}`);
     }

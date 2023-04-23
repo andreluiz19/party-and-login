@@ -1,6 +1,7 @@
 const router = require("express").Router();
-
 const partyController = require("../controllers/partyController");
+const { expressjwt } = require("express-jwt");
+const secret = process.env.SECRET;
 
 // Post
 router.route("/parties").post((req, res) => partyController.create(req, res));

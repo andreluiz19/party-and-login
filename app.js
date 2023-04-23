@@ -13,70 +13,17 @@ const routes = require("./routes/router");
 
 app.use("/api", routes);
 
-/*
-app.listen(3000, function () {
-    console.log(" ======== Servidor Online ======== ");
-    conn();
-});
-*/
 
 // LOGIN 
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
-
 const User = require('./models/User');
-
-// Rota privada (acessada com TOKEN)
-app.get('/user/:id', checkToken, async (req, res) => {
-
-    const id = req.params.id;
-
-    // Buscando se usuário existe
-    // '-password' retira o password da resposta
-    const user = await User.findById(id, '-password');
-
-    if (!user) {
-        return res.status(404).json({ msg: "Usuário não encontrado!" });
-    }
-
-    res.status(200).json({ user });
-});
-
-// Check Token (Middleware)
-function checkToken(req, res, next) {
-
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(" ")[1];
-
-    if (!token) {
-        // Status 401 -> Acesso Negado
-        return res.status(401).json({ msg: "Acesso negado!" });
-    }
-
-    try {
-
-        const secret = process.env.SECRET;
-
-        jwt.verify(token, secret);
-
-        next();
-
-    } catch (error) {
-
-        console.log(`Erro: ${error}`);
-        // Status 400 -> Servidor não irá processar, erro no cliente
-        res.status(400).json({ msg: "Sessão não autorizada!" });
-
-    }
-
-}
 
 // Registro de Usuário
 app.post('/auth/register', async (req, res) => {
 
-    const { name, email, password, confirmPassword } = req.body;
+    const { email, password, confirmPassword } = req.body;
 
     // Validações
     if (!name) {
@@ -110,7 +57,6 @@ app.post('/auth/register', async (req, res) => {
 
     // Criando usuário
     const user = new User({
-        name,
         email,
         password: hashPass
     });
@@ -170,9 +116,9 @@ app.post("/auth/login", async (req, res) => {
                 id: user.id,
             },
             secret,
-            // {
-            //     expiresIn: 300 // 5 Minutos
-            // }
+            {
+                //expiresIn: 300 // 5 Minutos
+            }
         );
         // Satatus 200 -> Sucesso
         res.status(200).json({ msg: "Autenticação realizada com sucesso!", token });
@@ -185,25 +131,6 @@ app.post("/auth/login", async (req, res) => {
 
     }
 });
-
-
-// Credenciais
-/*
-const dbUser = process.env.DB_USER;
-const dbPass = process.env.DB_PASS;
-
-mongoose.connect(
-    `mongodb+srv://${dbUser}:${dbPass}@cluster0.wpemlmw.mongodb.net/test`
-)
-    .then(() => {
-        console.log("========= CONECTADO AO BD =========");
-        app.listen(3000);
-        console.log("========= SERVIDOR ONLINE =========");
-    })
-    .catch((err) => {
-        console.log(`ERRO: ${err}`);
-    })
-*/
 
 app.listen(3000, function () {
     console.log(" ======== SERVIDOR ONLINE ======== ");

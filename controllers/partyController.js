@@ -19,7 +19,7 @@ const partyController = {
     getAll: async (req, res) => {
         try {
             const parties = await Party.find();
-
+            
             res.json(parties);
         } catch (error) {
             console.log(`Erro: ${error}`);
