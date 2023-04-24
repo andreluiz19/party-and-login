@@ -19,7 +19,7 @@ const partyController = {
     getAll: async (req, res) => {
         try {
             const parties = await Party.find();
-            
+
             res.json(parties);
         } catch (error) {
             console.log(`Erro: ${error}`);
@@ -67,7 +67,7 @@ const partyController = {
                 budget: req.body.budget,
             }
 
-            const response = await Party.findByIdAndUpdate(id, party);
+            const response = await Party.findByIdAndUpdate(id, party, { new: true });
             console.log(response);
             if (!response) {
                 res.status(404).json({ msg: "Festa não encontrada." });
