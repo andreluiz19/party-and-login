@@ -67,14 +67,14 @@ const partyController = {
                 budget: req.body.budget,
             }
 
-            const updatedParty = await Party.findByIdAndUpdate(id, party);
-
-            if (!updatedParty) {
+            const response = await Party.findByIdAndUpdate(id, party);
+            console.log(response);
+            if (!response) {
                 res.status(404).json({ msg: "Festa não encontrada." });
                 return;
             }
 
-            res.status(200).json({ party, msg: "Festa atualizada com sucesso." });
+            res.status(200).json({ response, msg: "Festa atualizada com sucesso." });
         } catch (error) {
             console.log(`Erro: ${error}`);
         }
