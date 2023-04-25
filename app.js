@@ -24,13 +24,8 @@ const User = require('./models/User');
 app.post('/auth/register', async (req, res) => {
 
     const { email, password, confirmPassword } = req.body;
-
+    
     // Validações
-    if (!name) {
-        // Status 422 (Unprocessable Entity) -> Requisição chegou no servidor, está correta mas não foi possível processar (name == null)
-        return res.status(422).json({ msg: "O nome é obrigatório!" });
-    }
-
     if (!email) {
         return res.status(422).json({ msg: "O email é obrigatório!" });
     }
