@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
-// Cria a collection
-const Party = mongoose.model('Parties', {
+const { Schema } = mongoose;
+
+const partySchema = new Schema({
+    //name: String
     title: {
         type: String,
         required: true
@@ -17,7 +19,12 @@ const Party = mongoose.model('Parties', {
     budget: {
         type: String,
         required: true
-    },
+    }
 });
 
-module.exports = Party;
+const Party = mongoose.model('Parties', partySchema); 
+
+module.exports = {
+    Party,
+    partySchema
+};

@@ -5,18 +5,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Cors
-// app.use((req, res, next) => {
-//     res.setHeader("Access-Control-Allow-Origin", "*");
-//     next();
-// });
-
 // DB Connection
 const conn = require("./db/conn");
 
 // Routes
 const routes = require("./routes/router");
-
 app.use("/api", routes);
 
 
@@ -59,7 +52,7 @@ app.post('/auth/register', async (req, res) => {
     // Criando usuário
     const user = new User({
         email,
-        password: hashPass
+        password: hashPass,
     });
 
     try {
@@ -82,7 +75,6 @@ app.post('/auth/register', async (req, res) => {
 app.post("/auth/login", async (req, res) => {
 
     const { email, password } = req.body;
-    //console.log("Login: " + email, password);
 
     // Validações
     if (!email) {
