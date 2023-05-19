@@ -27,7 +27,7 @@ const partyController = {
     },
     get: async (req, res) => {
         try {
-            // TODO -> Paginação
+            // ToDo -> Paginação
             // mudar para POST e passar no body: title: {string}, limit: {number}, skip: {number},
 
             const title = req.params.title;
@@ -74,7 +74,7 @@ const partyController = {
             }
 
             const response = await Party.findByIdAndUpdate(id, party, { new: true });
-            console.log(response);
+            
             if (!response) {
                 res.status(404).json({ msg: "Festa não encontrada." });
                 return;
